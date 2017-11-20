@@ -2,7 +2,7 @@
 
 
 
-$link = pg_connect("host='localhost' port='5433' user='gradebook' password='c3m4p2s' dbname='gradebook'");
+$link = pg_connect("host='localhost' port='5433' user='store' password='store' dbname='store'");
 
 echo "<h1>test database connection</h1>";
 
