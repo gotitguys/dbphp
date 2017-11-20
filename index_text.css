@@ -1,0 +1,93 @@
+/*text css*/
+/*from 211 midterm*/
+body {
+
+}
+div.wrapper {
+	font-family: Monotype Corsiva , cursive, serif;
+	color: #FFDB19;	
+}
+
+div.header {
+	text-shadow: 3px 3px #66580A;
+	text-align: center;	
+	font-size: 150%;
+}
+
+div.lmenu{
+	text-decoration: underline;	
+	text-align: left; 
+	list-style-image: url(small_skull_wheel.png);
+	list-style-position: outside;
+}
+
+div.rmenu{
+	text-align: center;
+}
+
+div.content{
+	text-align: center;
+}
+
+div.footer{
+	text-align: center;
+}
+h1.firstpage{
+	color: #CC0000;
+	text-shadow: 2px 2px #660000;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+	font-size: 200%;
+}
+
+h2.welcome{
+	color: #CC0000;
+	text-shadow: 2px 2px #660000;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+	bottom: 10px;
+	font-size: 200%;
+	
+}
+
+p.gallery {
+	color: red;
+	font-size: 200%; 
+	text-shadow: 1px 1px silver;
+	text-align: center;
+	padding: 0px;
+	margin: 0px;
+}
+
+p.author{
+	color: gold;
+	text-shadow: 1px 1px gray;
+	padding: 0px 0px -5px 0px;
+	margin: 0px;
+	float: center;
+}
+
+a {
+	font-family: "Times New Roman" , Times, serif;
+	font-weight: italic; 	
+}
+
+a:link {
+	color: blue;
+}
+
+a:visited{
+	color: gold;
+}
+
+a:hover{
+	color: orange;
+}
+
+a:active{
+	color: purple;
+}
+
+

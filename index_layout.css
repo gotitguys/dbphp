@@ -1,0 +1,69 @@
+/*layout css*/
+body {
+	background-color:gray;
+}
+div.wrapper {
+	position: absolute;
+	top: 25px;
+	left: 20px;
+	width: 1880px;/*change to fit on my phone, just a tiny bit too wide; instead of940px*/
+	height: 900px;/*was 1046 but I want this to more of a landscape style layout*/
+	border: 1px solid black; 
+}
+
+div.header {
+	position: absolute;
+	/*width: 920px;*/
+	height: 165px;
+    left: 20px;
+    right: 20px;
+    top: 10px;
+	/*border: 1px solid transparent;*/
+	border: 1px solid black;
+	padding: 10px;
+	margin: 0px;
+}
+
+div.lmenu{
+	position: absolute;
+	left: 20px;
+	top: 196px;
+	width: 160px;
+	height: 500px;
+    padding: 10px;
+	border: 1px dashed black;
+}
+
+div.rmenu{
+	position: absolute;
+	right: 20px;
+	top: 196px;
+	width: 160px;
+	height: 500px;
+    padding: 10px; 
+	border: 1px dashed black;
+}
+
+div.content{
+	position: absolute;
+	top: 196px;
+	left: 201px;
+	right: 201px;
+    height: 500px;
+    padding: 10px; 
+	border: 1px solid black;  	
+}
+
+div.footer{
+	position: absolute;
+    top: 718px;
+	bottom: 10px;
+	/*height: 60px;*/
+    padding: 10px; 
+	border: 1px solid black;
+	left: 20px;
+	right: 20px;
+}
+p{
+	padding: none;
+}
