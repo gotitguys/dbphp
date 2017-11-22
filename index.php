@@ -4,7 +4,7 @@
 
 <html>
 <head>
-	<title> FINAL CS311 </title>
+	<title> DATABASE 3420 </title>
 	<?php 
 	//require_once 'lib.php';
 	include 'util.php';
@@ -25,11 +25,13 @@
 			<?php include 'left.php' ?>
 		</div>
 		<div class="rmenu">
-			 
+			<?php include 'right.php' ?>	 
 		</div>
 		<div class="content">
-			<h1 class="firstpage"> Content </h1>
-			<p class="gallery"> Test your logic skills.
+			<h1 class="firstpage"> Store </h1>
+			<p class="gallery"> Buy Stuff Now!!!<p>
+			<p class="gallery">Or Ana Will Beat You Up!!!<p>
+			<a href='test.php'>Testing connection and reading Customers from database</a>	
 			
 				
 		</div>

@@ -42,59 +42,60 @@ $error = "";
 //$lname = mysqli_real_escape_string($link,htmlentities($_POST['lname']));
 
 // DEBUG 
-var_dump($_POST);
+//var_dump($_POST);
 
 if(isset($email) && !empty($email) &&
-    isset($pass1) && !empty($pass1) ){// && check rest
+		isset($pass1) && !empty($pass1) ){// && check rest
 
-        // STEP 1
-        //   do here
-        // STEP 2
-        //   do here
-        // STEP 3
-        $sql = "INSERT INTO Users (u_email, u_password, u_fname, u_lname)
-            VALUES('$email', '$pass1', '$fname', '$lname')";
+	// STEP 1
+	//   do here
+	// STEP 2
+	//   do here
+	// STEP 3
+	$sql = "INSERT INTO Users (u_email, u_password, u_fname, u_lname)
+		VALUES('$email', '$pass1', '$fname', '$lname')";
 
-        if(mysqli_query($link, $sql)) { // SUCCESSFULL
-            // (set session values in login.php   "suggestion" )
-            // redirect to login.php
-            //header("Location: home.php");
-            echo "SUCCESSFULL REGISTER :) ";
-           // $_SESSION['active']= true; // this should be done in login
-                                       // after we've validated a successful
-        } else {
-            $error.="QUERY Failed";
-        }
-    }
+	if(pg_query($link, $sql)) { // SUCCESSFULL
+		// (set session values in login.php   "suggestion" )
+		// redirect to login.php
+		//header("Location: home.php");
+		echo "SUCCESSFULL REGISTER :) ";
+		// $_SESSION['active']= true; // this should be done in login
+		// after we've validated a successful
+	} else {
+		$error.="QUERY Failed";
+	}
+}
 else {
-    $error.="Missing Form Fields";
-    echo "<script>console.log('hey')</script>";
+	$error.="Missing Form Fields";
+	echo "<script>console.log('hey')</script>";
 }
 
 if($error!="")
-    echo $error."<br>";
+echo $error."<br>";
 ?>
 <html>
 <head>
 <title>Register</title>
 <?php 
-	//require_once 'lib.php';
-	require_once 'util.php';	
-	?>
+//require_once 'lib.php';
+require_once 'util.php';	
+?>
 </head>
 <body>
 <div class='wrapper' >
-	<div class="header">
-			<?php include 'header.php' ?>	
-	</div>
-	<div class='lmenu' >
-      <?php include_once 'left.php' ?>
-	</div>
-	<div class="rmenu">
-			
-	</div>
-	<div class="content">
-	<h2>REGISTER</h3>
+<div class="header">
+<?php include 'header.php' ?>	
+</div>
+<div class='lmenu' >
+<?php include_once 'left.php' ?>
+</div>
+<div class="rmenu">
+<?php include_once 'right.php' ?>
+
+</div>
+<div class="content">
+<h2>REGISTER</h3>
 
 <form method='POST' action='register.php'>
 First Name <input type='text' name='fname'><br>
@@ -103,13 +104,13 @@ Email <input type='email' name='email'><br>
 Password <input type='password' name='pass1'><br>
 Password Verify <input type='password' name='pass2'><br>
 <input type='submit' value='register'>
-	
+
 </form>
-	</div>
-	
-	<div class="footer">
-			<p class="author"><?php include 'footer.php'?></p>
-	</div>
- </div>  <!-- end wrapper div -->
+</div>
+
+<div class="footer">
+<p class="author"><?php include 'footer.php'?></p>
+</div>
+</div>  <!-- end wrapper div -->
 </body>
 </html>	

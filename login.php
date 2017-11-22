@@ -23,8 +23,8 @@ function login() {
 $fname = htmlspecialchars($_POST['user']);
 $pword = htmlspecialchars($_POST['pass']);
 $sql = "SELECT * FROM Users WHERE u_fname = '$fname' AND u_password = '$pword'";
-$search = mysqli_query($link, $sql);
-if(mysqli_num_rows($search)==0)
+$search = pg_query($link, $sql);
+if(pg_num_rows($search)==0)
 {
 	echo "redirect to register";
 	header('location: register.php');
@@ -35,7 +35,7 @@ else
 	//echo "logged in set up session variables";
 	$_SESSION['active']= true; // this should be done in login
                                        // after we've validated a successful
-	while ($row = mysqli_fetch_assoc($search)){
+	while ($row = pg_fetch_assoc($search)){
 	$_SESSION['u_id'] = $row['u_id'];
 	$_SESSION['u_email'] = $row['u_email'];
 	$_SESSION['u_password'] = $row['u_password'];

@@ -22,7 +22,11 @@ div.lmenu{
 }
 
 div.rmenu{
-	text-align: center;
+	/*text-align: center;*/
+	text-decoration: underline;	
+	text-align: left; 
+	list-style-image: url(small_skull_wheel.png);
+	list-style-position: outside;
 }
 
 div.content{
