@@ -41,7 +41,11 @@ $pass2 = pg_escape_string($link,htmlentities($_POST['pass2']));
 $fname = pg_escape_string($link,htmlentities($_POST['fname']));
 $lname = pg_escape_string($link,htmlentities($_POST['lname']));
 $middle_init = pg_escape_string($link,htmlentities($_POST['middle_init']));
-$phone = pg_escape_string($link,htmlentities($_POST['phone']));
+$areaCode = pg_escape_string($link,htmlentities($_POST['areaCode']));
+$prefix = pg_escape_string($link,htmlentities($_POST['prefix']));
+$suffix = pg_escape_string($link,htmlentities($_POST['suffix']));
+//concatenate phone number into 1 ten digit string
+$phone = $areaCode . $prefix . $suffix;
 
 /*
 $email = pg_escape_literal($link,htmlentities($_POST['email']));
@@ -113,12 +117,12 @@ require_once 'util.php';
 
 <form method='POST' action='register.php'>
 First Name <input type='text' name='fname'><br>
-First Name <input type='text' name='middle_init'><br>
+Middle Initial <input type='text' name='middle_init'><br>
 Last Name <input type='text' name='lname'><br>
 Email <input type='email' name='email'><br>
 Password <input type='password' name='pass1'><br>
 Password Verify <input type='password' name='pass2'><br>
-Phone <input type='text' name='phone'><br>
+Phone (<input type='tel' size=3 name='areaCode'>)<input type=tel size=3 name='prefix'> - <input type=tel size=4 name='suffix'  > <br>
 <input type='submit' value='register'>
 
 </form>
