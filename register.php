@@ -34,15 +34,27 @@ $error = "";
 // if($error!="") 
 //  echo $error;
 
+//NOTE:data should be sanitized but don't worry about for database
+$email = pg_escape_string($link,htmlentities($_POST['email']));
+$pass1 = pg_escape_string($link,htmlentities($_POST['pass1']));
+$pass2 = pg_escape_string($link,htmlentities($_POST['pass2']));
+$fname = pg_escape_string($link,htmlentities($_POST['fname']));
+$lname = pg_escape_string($link,htmlentities($_POST['lname']));
+$middle_init = pg_escape_string($link,htmlentities($_POST['middle_init']));
+$phone = pg_escape_string($link,htmlentities($_POST['phone']));
 
-//$email = mysqli_real_escape_string($link,htmlentities($_POST['email']));
-//$pass1 = mysqli_real_escape_string($link,htmlentities($_POST['pass1']));
-//$pass2 = mysqli_real_escape_string($link,htmlentities($_POST['pass2']));
-//$fname = mysqli_real_escape_string($link,htmlentities($_POST['fname']));
-//$lname = mysqli_real_escape_string($link,htmlentities($_POST['lname']));
+/*
+$email = pg_escape_literal($link,htmlentities($_POST['email']));
+$pass1 = pg_escape_literal($link,htmlentities($_POST['pass1']));
+$pass2 = pg_escape_literal($link,htmlentities($_POST['pass2']));
+$fname = pg_escape_literal($link,htmlentities($_POST['fname']));
+$lname = pg_escape_literal($link,htmlentities($_POST['lname']));
+$middle_init = pg_escape_literal($link,htmlentities($_POST['middle_init']));
+$phone = pg_escape_literal($link,htmlentities($_POST['phone']));
+*/
 
 // DEBUG 
-//var_dump($_POST);
+var_dump($_POST);
 
 if(isset($email) && !empty($email) &&
 		isset($pass1) && !empty($pass1) ){// && check rest
@@ -52,8 +64,10 @@ if(isset($email) && !empty($email) &&
 	// STEP 2
 	//   do here
 	// STEP 3
-	$sql = "INSERT INTO Users (u_email, u_password, u_fname, u_lname)
-		VALUES('$email', '$pass1', '$fname', '$lname')";
+	//$sql = "INSERT INTO Users (u_email, u_password, u_fname, u_lname)
+	//	VALUES('$email', '$pass1', '$fname', '$lname')";
+	$sql = "INSERT INTO customer (Customer_id, Fname, Middle_init, Lname, Pword, Email, phone)
+		VALUES( DEFAULT, '$fname', '$middle_init','$lname','$pass1', '$email', '$phone')";
 
 	if(pg_query($link, $sql)) { // SUCCESSFULL
 		// (set session values in login.php   "suggestion" )
@@ -99,10 +113,12 @@ require_once 'util.php';
 
 <form method='POST' action='register.php'>
 First Name <input type='text' name='fname'><br>
+First Name <input type='text' name='middle_init'><br>
 Last Name <input type='text' name='lname'><br>
 Email <input type='email' name='email'><br>
 Password <input type='password' name='pass1'><br>
 Password Verify <input type='password' name='pass2'><br>
+Phone <input type='text' name='phone'><br>
 <input type='submit' value='register'>
 
 </form>
