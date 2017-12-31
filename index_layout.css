@@ -13,11 +13,12 @@ div.wrapper {
 
 div.header {
 
-	background-image:url('CAIH.jpg');
+	background-image:url('CAIH2.jpg');
 	background-repeat: no-repeat;
 	background-size: cover ;
+	position: center;
 	
-	position: absolute;
+	/*position: absolute;*/
 	/*width: 920px;*/
 	height: 165px;
     left: 20px;
