@@ -81,26 +81,30 @@ include 'util.php';
 <div class="container">    
   <div class="row">
     <div class="col-sm-4">
-      <div class="panel panel-primary">
+      <div class="panel panel-primary" >
         <div class="panel-heading">Captain America</div>
         <div class="panel-body"><img src="productphotos/captainamerica.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price: </div>
+        <div class="panel-footer">Price: 
+	<button onclick="myFunction()" style="right">add to cart </button>
+      </div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Incredible Hulk</div>
         <div class="panel-body"><img src="productphotos/incrediblehulk.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">price: </div>
+        <div class="panel-footer">price: 
+	<button onclick="myFunction()" style="right">add to cart </button>
+      	</div>
       </div>
-    </div>
+	</div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Deadpool</div>
         <div class="panel-body"><img src="productphotos/deadpool.jpeg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price: </div>
+        <div class="panel-footer">Price: 
+	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
-    </div>
   </div>
 </div><br>
 
@@ -112,21 +116,27 @@ include 'util.php';
       <div class="panel panel-primary">
         <div class="panel-heading">Wonder Woman</div>
         <div class="panel-body"><img src="productphotos/wonderwoman.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price: </div>
+        <div class="panel-footer">Price: 
+	<button onclick="myFunction()" style="right">add to cart </button>
+      </div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Flash</div>
         <div class="panel-body"><img src="productphotos/flash.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price:</div>
+        <div class="panel-footer">Price:
+	<button onclick="myFunction()" style="right">add to cart </button>
+      </div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Batman</div>
         <div class="panel-body"><img src="productphotos/batman.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price: </div>
+        <div class="panel-footer">Price: 
+	<button onclick="myFunction()" style="right">add to cart </button>
+      </div>
       </div>
     </div>
 
@@ -140,7 +150,9 @@ include 'util.php';
       <div class="panel panel-primary">
         <div class="panel-heading">Dragon Age</div>
         <div class="panel-body"><img src="productphotos/dragonage.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price</div>
+        <div class="panel-footer">Price
+	<button onclick="myFunction()" style="right">add to cart </button>
+      </div>
       </div>
     </div>
 
@@ -149,14 +161,17 @@ include 'util.php';
       <div class="panel panel-primary">
         <div class="panel-heading">HellBoy</div>
         <div class="panel-body"><img src="productphotos/hellboy.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price:</div>
+        <div class="panel-footer">Price:
+	<button onclick="myFunction()" style="right">add to cart </button>
+      </div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Conan</div>
         <div class="panel-body"><img src="productphotos/conan.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price:</div>
+        <div class="panel-footer">Price:
+	<button onclick="myFunction()" style="right">add to cart </button></div>
       </div>
     </div>
 
