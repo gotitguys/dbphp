@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<style> 
+.filterDiv{
+}
+.show{
+}
+
+.container{
+margin-top:20px;
+overflow: hidden;
+}
+.btn{
+border:none;
+outline:none;
+padding: 12px 16px;
+background-color: #f1f1f1;
+cursor:pointer;
+}
+.btn:hover, .active{
+background-color:#ccc;
+}
+</style>
+
 <?php
+
 session_start();
 require_once('connect.php');
 include 'util.php';
@@ -62,13 +86,12 @@ include 'util.php';
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.php">HOME</a>
+      <a class="navbar-brand" href="index.php">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="shop.php">Products</a></li>
-        <li><a href="#">Deals</a></li>
-        <li><a href="contact.php">Contact</a></li>
+        <li><a class="navbar-brand" href="shop.php">Products</a></li>
+        <li><a class="navbar-brand" href="contact.php">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
@@ -77,8 +100,15 @@ include 'util.php';
     </div>
   </div>
 </nav>
+<div id="myBtnContainer">
+<button class="btn active" onclick ="filterSelection('all')">Show all </button>
+<button class ="btn" onclick= "filterSelection('Marvel')">Marvel</button>
+<button class ="btn" onclick= "filterSelection('DC')">DC</button>
+<button class ="btn" onclick= "filterSelection('Dark Horse')">Dark Horse</button>
+</div>
 
 <div class="container">    
+<div class= "filterDiv Marvel">
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary" >
@@ -88,8 +118,8 @@ include 'util.php';
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
       </div>
-    </div>
-    <div class="col-sm-4"> 
+	</div>
+   <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Incredible Hulk</div>
         <div class="panel-body"><img src="productphotos/incrediblehulk.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
@@ -106,11 +136,13 @@ include 'util.php';
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
   </div>
+</div>
+
+</div>
 </div><br>
 
 <div class="container">    
-  <div class="row">
-<div class="container">    
+<div class= "filterDiv DC">
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
@@ -145,6 +177,7 @@ include 'util.php';
 
 
 <div class="container">    
+<div class= "filterDiv Dark Horse">
   <div class="row">
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
@@ -174,9 +207,58 @@ include 'util.php';
 	<button onclick="myFunction()" style="right">add to cart </button></div>
       </div>
     </div>
-
+</div>
 </div>
 </div><br><br>
+<script>
+filterSelection("all)
+function filterSelection(c){
+var x, i;
+x= document.getElementsByClassName("filterDiv");
+if (c == "all"){
+ c="";
+}
+for (i=0; i<x.length; i++){
+w3RemoveClass(x[i], "show");
+if(x[i].className.indexOf(c)>-1)
+w3addClass(x[i], "show");
+}
+}
+
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
+
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Add active class to the current button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+
+
+
 
 <footer class="container-fluid text-center">
   <p>&copy CAVIE</p>  
@@ -185,7 +267,7 @@ include 'util.php';
     <button type="button" class="btn btn-danger">Sign Up</button>
   </form>
 </footer>
-
+</script>
 </body>
 </html>
 
