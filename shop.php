@@ -108,47 +108,99 @@ include 'util.php';
 </div>
 
 <div class="container">    
-<div class= "filterDiv Marvel">
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary" >
         <div class="panel-heading">Captain America</div>
         <div class="panel-body"><img src="productphotos/captainamerica.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Price: 
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='CAPTAIN AMERICA'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
-      </div>
-	</div>
+      </div></div>
+
    <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Incredible Hulk</div>
         <div class="panel-body"><img src="productphotos/incrediblehulk.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">price: 
-	<button onclick="myFunction()" style="right">add to cart </button>
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='INCREDIBLE HULK'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
+	
+<button onclick="myFunction()" style="right">add to cart </button>
       	</div>
       </div>
 	</div>
+
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Deadpool</div>
         <div class="panel-body"><img src="productphotos/deadpool.jpeg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Price: 
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='DEADPOOL'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
   </div>
-</div>
 
 </div>
-</div><br>
+</div>
 
 <div class="container">    
-<div class= "filterDiv DC">
   <div class="row">
     <div class="col-sm-4">
       <div class="panel panel-primary">
         <div class="panel-heading">Wonder Woman</div>
         <div class="panel-body"><img src="productphotos/wonderwoman.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price: 
+        <div class="panel-footer">Price:  
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='WONDER WOMAN'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
+ 
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
       </div>
@@ -158,32 +210,71 @@ include 'util.php';
         <div class="panel-heading">Flash</div>
         <div class="panel-body"><img src="productphotos/flash.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Price:
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='FLASH'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
       </div>
     </div>
+
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Batman</div>
         <div class="panel-body"><img src="productphotos/batman.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Price: 
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='BATMAN'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
       </div>
-    </div>
 
   </div>
-</div><br>
+</div>
 
 
 <div class="container">    
-<div class= "filterDiv Dark Horse">
   <div class="row">
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Dragon Age</div>
         <div class="panel-body"><img src="productphotos/dragonage.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Price
+        <div class="panel-footer">Price:
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='DRAGON AGE'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
       </div>
@@ -195,32 +286,63 @@ include 'util.php';
         <div class="panel-heading">HellBoy</div>
         <div class="panel-body"><img src="productphotos/hellboy.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Price:
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='HELLBOY'");
+if (!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button>
       </div>
       </div>
     </div>
+
+
     <div class="col-sm-4"> 
       <div class="panel panel-primary">
         <div class="panel-heading">Conan</div>
         <div class="panel-body"><img src="productphotos/conan.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
         <div class="panel-footer">Price:
+<?php
+$result ="";
+$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='CONAN'");
+if(!$result){
+echo "An erroe has occured.\n";
+exit;
+}
+else{
+while($row= pg_fetch_assoc($result)){
+echo $row['s_price'];
+}
+}
+?>
 	<button onclick="myFunction()" style="right">add to cart </button></div>
       </div>
     </div>
+
 </div>
 </div>
-</div><br><br>
+
 <script>
-filterSelection("all)
+filterSelection("all")
 function filterSelection(c){
 var x, i;
-x= document.getElementsByClassName("filterDiv");
+ x = document.getElementsByClassName("filterDiv");
 if (c == "all"){
  c="";
 }
 for (i=0; i<x.length; i++){
 w3RemoveClass(x[i], "show");
-if(x[i].className.indexOf(c)>-1)
+if(x[i].className.indexOf(c)>-1){
+
 w3addClass(x[i], "show");
 }
 }
@@ -230,7 +352,9 @@ function w3AddClass(element, name) {
   arr1 = element.className.split(" ");
   arr2 = name.split(" ");
   for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+    if (arr1.indexOf(arr2[i]) == -1) {
+	element.className += " " + arr2[i];
+}
   }
 }
 
@@ -258,6 +382,7 @@ for (var i = 0; i < btns.length; i++) {
 }
 
 
+</script>
 
 
 <footer class="container-fluid text-center">
@@ -267,7 +392,6 @@ for (var i = 0; i < btns.length; i++) {
     <button type="button" class="btn btn-danger">Sign Up</button>
   </form>
 </footer>
-</script>
 </body>
 </html>
 
