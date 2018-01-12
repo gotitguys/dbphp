@@ -1,5 +1,5 @@
 <DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>CAIVE</title>
 <meta charset="utf-8">
@@ -9,6 +9,37 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
+/* Remove the navbar's default rounded borders and increase the bottom margin */
+.navbar {
+        margin-bottom: 50px;
+        border-radius: 0;
+}
+
+/* Remove the jumbotron's default bottom margin */
+.jumbotron {
+        min-height: 500px;
+        background-image:url('CAIHflop.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+position: center;
+          margin-bottom: 0;
+          /*-webkit-transform: scaleX(-1);
+transform: scaleX(-1);*/
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+        background-color: #f2f2f2;
+padding: 25px;
+}
+
+#jumboHeader {
+color: red;
+         font-weight: bold;
+         font-size: 68px;
+}
+
+
 input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
@@ -22,7 +53,6 @@ input[type=text], select, textarea {
 
 input[type=submit] {
     background-color: #4CAF50;
-    color: white;
     padding: 12px 20px;
     border: none;
     border-radius: 4px;
@@ -34,48 +64,17 @@ input[type=submit]:hover {
 }
 
 .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
+border-radius: 5px;
+padding: 20px;
 }
-
-
- .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-
-    /* Remove the jumbotron's default bottom margin */
-     .jumbotron {
-      min-height: 500px;
-      background-image:url('CAIHflop.jpg');
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: center;
-      margin-bottom: 0;
-      /*-webkit-transform: scaleX(-1);
-      transform: scaleX(-1);*/
-    }
-
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-
- #jumboHeader {
-        color: red;
-        display: block;
-        font-weight: bold;
-        font-size: 68px;
 
 </style>
 </head>
 <body>
 <div class="jumbotron">
-  <div class="container text-center">
-    <h1 id="jumboHeader">Captain Ana vs. Incredible Esteban</h1>
-  </div>
+<div class="container text-center">
+<h1 id= "jumboHeader"> Captain Ana Vs Incredible Esteban </h1>
+</div>
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -103,7 +102,7 @@ input[type=submit]:hover {
 
 <h3><center>Contact Form</center></h3>
 
-<div class="container">
+<div class="container"style="background-color: #f2f2f2">    
   <form action="/action_page.php">
     <label for="fname">First Name</label>
     <input type="text" id="fname" name="firstname" placeholder="Your name..">
