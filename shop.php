@@ -110,7 +110,9 @@ else{
 	}
 }
 ?>
-<button onclick="myFunction()">add to cart </button>
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "13" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div> <!-- footer -->
 </div></div>
 <div class="col-sm-4"> 
@@ -132,7 +134,9 @@ else{
 }
 ?>
 
-<button onclick="myFunction()">add to cart </button>
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "14" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div><!-- footer -->
 </div>
 </div>
@@ -155,7 +159,10 @@ else{
 	}
 }
 ?>
-<button onclick="myFunction()" >add to cart </button>
+
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "19" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()" >add to cart </button>-->
 </div><!-- footer -->
 </div>
 </div>
@@ -181,7 +188,9 @@ else{
 }
 ?>
 
-<button onclick="myFunction()">add to cart </button>
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "4" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div>
 </div>
 </div>
@@ -200,10 +209,13 @@ if(!$result){
 else{
 	while($row= pg_fetch_assoc($result)){
 		echo $row['s_price'].' ' ;
+	//	echo $row['p_id'];
 	}
 }
 ?>
-<button onclick="myFunction()">add to cart </button>
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "5" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div>
 </div>
 </div>
@@ -223,11 +235,14 @@ if(!$result){
 else{
 	while($row= pg_fetch_assoc($result)){
 		echo $row['s_price'].' ';
+//		echo $row['p_id'];
 
 	}
 }
 ?>
-<button onclick="myFunction()">add to cart </button>
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "2" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div>
 </div>
 
@@ -243,7 +258,7 @@ else{
 <div class="panel-footer">Price:
 <?php
 $result ="";
-$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='DRAGON AGE'");
+$result = pg_query ($link, "SELECT * FROM products WHERE products.p_name='DRAGON AGE'");
 if(!$result){
 	echo "An erroe has occured.\n";
 	exit;
@@ -251,10 +266,13 @@ if(!$result){
 else{
 	while($row= pg_fetch_assoc($result)){
 		echo $row['s_price'].' ';
+		//echo $row['p_id'];
 	}
 }
 ?>
-<button onclick="myFunction()">add to cart </button>
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "28" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div>
 </div>
 </div>
@@ -267,7 +285,7 @@ else{
 <div class="panel-footer">Price:
 <?php
 $result ="";
-$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='HELLBOY'");
+$result = pg_query ($link, "SELECT * FROM products WHERE products.p_name='HELLBOY'");
 if (!$result){
 	echo "An erroe has occured.\n";
 	exit;
@@ -275,11 +293,15 @@ if (!$result){
 else{
 	while($row= pg_fetch_assoc($result)){
 		echo $row['s_price'].' ';
+		//echo $row['p_id'];
 
 	}
 }
 ?>
-<button onclick="myFunction()">add to cart </button>
+
+<form action="cart.php" method="get">
+<a href="cart.php?p_id=<?php echo "25" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button onclick="myFunction()">add to cart </button>-->
 </div>
 </div>
 </div>
@@ -291,7 +313,7 @@ else{
 <div class="panel-footer">Price:
 <?php
 $result ="";
-$result = pg_query ($link, "SELECT * FROM products WHERE products.p_name='CONAN'");
+$result = pg_query ($link, "SELECT * FROM products WHERE p_name='CONAN'");
 if(!$result){
 	echo "An erroe has occured.\n";
 	exit;
@@ -305,13 +327,15 @@ else{
 }
 ?>
 <form action="cart.php" method="get">
-<button type="button"  onclick="myFunction()"><a href="cart.php?p_id=<?php echo $row['p_id']; ?>">add to cart</a> </button>
-</form></div>
-<script>
+<!--<a href="cart.php?p_id=<-?php echo "27" ?>">add to cart</a></form>-->
+<a href="cart.php?p_id=<?php echo "27" ?>"><img src="cartbutton.png" ></a></form>
+<!--<button type="button"  onclick="myFunction()"><a href="cart.php?p_id=<-?-p-h-p echo $row['p_id']; ?>">add to cart</a> </button> -->
+</div>
+<!--<script>
 function myFunction(){
 
 }
-</script>
+</script>-->
 
 </div>
 </div>

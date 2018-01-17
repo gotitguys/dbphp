@@ -76,18 +76,18 @@ display: block;
 session_start();
 require 'connect.php';
 require 'item.php';
-   //$output=0; 
-   //$pid = (int)$_GET['products.p_id'];
-        //if($pid != ""){
-        //      echo "ERROR NIGGA!";
-        //}
-  // $result= pg_query($link,"SELECT * FROM products WHERE p_id='$pid'");
-   //$row = pg_fetch_assoc($result);
+  //$pid =$_GET['p_id'];
+  //$result= pg_query($link,"SELECT * FROM products WHERE p_id='$pid'");
+  //$row = pg_fetch_assoc($result);
    //while($row = pg_fetch_assoc($result)){
 //echo $pid;
 if(isset($_GET['p_id'])){
    $sql= 'SELECT * FROM products WHERE p_id='.$_GET['p_id'];
-   $result= pg_query($link,$sql);
+   $result= pg_query($link, $sql);
+   //if (!$result){
+//	echo "error";
+  // }
+   //$result= pg_query($link,"SELECT * FROM products WHERE p_id=".$_GET['p_id']);
    $row = pg_fetch_assoc($result);
    //$output.=$_GET['p_id'];
    $item = new Item();
@@ -113,6 +113,7 @@ if(isset($_GET['p_id'])){
         }
 
 }
+
 // Delete product in cart
 //$index=(int)$_GET['p_id'] + 1;        
  if (isset($_GET['index'])){
@@ -158,7 +159,11 @@ echo "</tr>";
 </tr>
 </table>
 <br>
-<a href="index.php">Continue Shopping</a>
+<a href="shop.php">Continue Shopping</a>
+<br>
+<br>
+
+<a href="orderpdf.php">Continue Shopping</a>
 </body>
 </html>
 
