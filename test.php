@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang ="en">
 <?php
 session_start();
 require_once('connect.php');
@@ -51,8 +53,8 @@ echo "</table>";
 
 
 //not sure if I should close here, but will for now
-pg_close($link);
+//pg_close($link);
 
 ?>
 
-
+</html>

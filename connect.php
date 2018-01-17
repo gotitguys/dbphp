@@ -11,7 +11,7 @@ if(!$link) {
 }
 
 else {
-	//echo '<h1>database connection successful</h1>';
+//	echo '<h1>database connection successful</h1>';
 }
 
 ?>

@@ -73,7 +73,7 @@ display: block;
 <li><a class="navbar-brand" href="contact.php">Contact</a></li>
 </ul>
 <ul class="nav navbar-nav navbar-right">
-<li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+<li><a href="account.php"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
 <li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 </ul>
 </div>
@@ -291,18 +291,28 @@ else{
 <div class="panel-footer">Price:
 <?php
 $result ="";
-$result = pg_query ($link, "SELECT s_price FROM products WHERE products.p_name='CONAN'");
+$result = pg_query ($link, "SELECT * FROM products WHERE products.p_name='CONAN'");
 if(!$result){
 	echo "An erroe has occured.\n";
 	exit;
 }
 else{
 	while($row= pg_fetch_assoc($result)){
-		echo $row['s_price'].' ';
+	echo $row['s_price'].' ';
+	//echo "<br/>";	
+	//echo $row['p_id'].' ';
 	}
 }
 ?>
-<button onclick="myFunction()">add to cart </button></div>
+<form action="cart.php" method="get">
+<button type="button"  onclick="myFunction()"><a href="cart.php?p_id=<?php echo $row['p_id']; ?>">add to cart</a> </button>
+</form></div>
+<script>
+function myFunction(){
+
+}
+</script>
+
 </div>
 </div>
 
