@@ -5,6 +5,106 @@
 	session_start();
 	require_once('connect.php');
 	include 'functions.php';
+	echo "testing<br/>";
+	//function profitLoss(){
+
+	//variables
+	//$invested;
+	//$returns = 0;
+	$publisher = array();
+
+	if (isset($_POST['publisher']))	{
+		print_r($_POST['publisher']);
+		$publisher = $_POST['publisher'];
+		$elements = count(array_keys($publisher));
+		echo "<br>";
+		echo $elements ."<br>";
+		
+		foreach($publisher as $value){
+			echo "DEBUG: ".$value;
+		}
+	}
+	/*if (isset($_POST['all']) || isset($_POST['DarkHorse']) ||
+		isset($_POST['DC']) || isset($_POST['Marvel'])){*/
+	if (isset($_POST['all'])){
+		$yo = profitLoss($link);
+		echo $yo;
+		//return;
+	}
+//}
+
+	
+	function showSelection($publisher,$link){
+			$elements = count(array_keys($publisher));
+			echo "<h2 style='color:red; text-decoration:underline;'>Selected </h2>";
+			if(empty($publisher)){
+				echo "<p style='color:red;'>Nothing Selected<br></p>";
+			}
+			elseif($publisher[0]=='All'){
+				echo "<p style='color:red;'>".$publisher[0]."<br></p>";
+				//showResults($link);
+				$invested = getInvestmentTotal($link);
+			}
+			else{
+				foreach($publisher as $value){
+				echo "<p style='color:red;'>".$value."<br></p>";
+				}
+			}
+	}
+
+	function profits($link){
+	require_once('connect.php');
+	//include 'functions.php';
+		echo "DEBUG: in profit function<br/>";
+		echo "<form method='post' action='analytics.php'>
+		<table>
+		<tr>
+		<td style ='color:blue;'><input type='checkbox' value='All'>ALL PUBLISHERS</td>
+		</tr>
+		<tr>
+		<td style ='color:blue;'><input type='checkbox' value='DarkHorse'>DARK HORSE</td>
+		</tr>
+		<tr>
+		<td style ='color:blue;'><input type='checkbox' value='DC'>DC</td>
+		</tr>
+		<tr>
+		<td style ='color:blue;'><input type='checkbox' value='Marvel'>MARVEL</td>
+		</tr>
+		<tr>
+		<td style ='color:blue;'><input type='submit' value='Submit'></td>
+		</tr>
+		</table>";
+		/*$invested = getInvestmentTotal($link);
+		echo "Invested: $invested <br/>";
+		$sold = getReturnsTotal($link);
+		echo "Returns: $sold <br/>";
+		if ($invested > $sold){
+			$amount = $invested - $sold;
+			echo "Loss : $$amount<br/>";
+		} 	
+		elseif ($invested < $sold){
+			$amount = $sold - $invested;
+			echo "Profit : $$amount <br/>";
+		}
+		else echo "Even : $0 <br/>";*/ 	
+
+	}
+	
+	function showResults($link){
+		$invested = getInvestmentTotal($link);
+		echo "Invested: $invested <br/>";
+		$sold = getReturnsTotal($link);
+		echo "Returns: $sold <br/>";
+		if ($invested > $sold){
+			$amount = $invested - $sold;
+			echo "Loss : $$amount<br/>";
+		} 	
+		elseif ($invested < $sold){
+			$amount = $sold - $invested;
+			echo "Profit : $$amount <br/>";
+		}
+		else echo "Even : $0 <br/>"; 
+	}	
 	//include 'util.php';
 ?>
 <head>
@@ -77,15 +177,119 @@
             <h4>Derived Stock</h4>
             <?php
 		$maxID = getMaxId($link);
-		echo "BACK FROM FUNCTION CALL<br/>";
-		echo "TEST: maxid = $maxID";
+		//echo "BACK FROM FUNCTION CALL<br/>";
+		//echo "TEST: maxid = $maxID <br />";
+		//$totalPurchased = array();
+		$totalPurchased = getTotalPurchased($link,$maxID);
+		//print_r($totalPurchased);
+		$totalSold = getTotalSold($link,$maxID);
+		//print_r($totalSold);
+		$derivedStock = calculateStock($totalPurchased, $totalSold, $maxID);
+		$threshold = 5;
+		$needsAttention = analyzeStock($derivedStock, $maxID, $threshold);
+		if ($needsAttention) echo "STOCK LOW<br/>";
+		else echo "STOCK OK<br/>";
+		//print_r($derivedStock);
 	    ?> 
           </div>
         </div>
         <div class="col-sm-3">
           <div class="well">
-            <h4>Pages</h4>
-            <p>100 Million</p> 
+            <h4>Profit/Loss</h4>
+		<form method="post" action="analytics.php">
+		<table>
+		<tr>
+		<td style='color:blue;'><input type='checkbox' name='publisher[]' value='All' >All</td>
+		</tr>
+		<tr>
+		<td style='color:blue;'><input type='checkbox' name='publisher[]' value='DARK HORSE' >DarkHorse</td>
+		</tr>
+		<tr>
+		<td style='color:blue;'><input type='checkbox' name='publisher[]' value='DC' >DC</td>
+		</tr>
+		<tr>
+		<td style='color:blue;'><input type='checkbox' name='publisher[]' value='MARVEL' >Marvel</td>
+		</tr>
+		<tr>
+		<td style ='color:blue;'><input type='submit' value='Submit'></td>
+		</tr>
+		</table>
+		</form>
+	    <?php //profits();?>
+            <?php
+		showSelection($publisher,$link);
+		//showResults($link);	
+		//$invested = getInvestmentTotal($link);
+		if(!empty($publisher)){
+			//echo "Investment: ".$invested. "<br/>";
+			$x = 0;
+			$query = "";
+			$query2 = "";
+			$elements = count(array_keys($publisher));
+			//echo "DEBUG: array count = ".$elements."<br>";
+			if($publisher[0] == 'All'){
+				$invested = getInvestmentTotal($link);
+				//echo "Investment: ".$invested. "<br/>";
+				$sold = getReturnsTotal($link);
+				//echo "Returns: $sold <br/>";
+				/*if ($invested > $sold){
+					$amount = $invested - $sold;
+					echo "Loss : $$amount<br/>";
+				} 	
+				elseif ($invested < $sold){
+					$amount = $sold - $invested;
+					echo "Profit : $$amount <br/>";
+				}
+				else echo "Even : $0 <br/>";*/	
+				}
+			else{
+				foreach($publisher as $value){
+					//echo $value."<br>";
+					if($x == 0){
+						$query = "p.category = '".$value."' and p.p_id = r.p_id"; 
+						$query2 = "p.category = '".$value."' and p.p_id = c.p_id"; 
+					}
+					else {
+						 $query .= " or p.category = '".$value."' and p.p_id = r.p_id";
+						 $query2 .= " or p.category = '".$value."' and p.p_id = c.p_id";
+					}
+					$x++; 
+				}
+				//echo "DEBUG =".$query."<br>";
+				$invested = getSelectedInvestmentTotal($link, $query);
+				$sold = getSelectedReturnsTotal($link,$query2);
+				//echo "Investment: ".$invested. "<br/>";
+			}
+			echo "<table><tr>";	
+			echo "<td align='right'>Investment:</td><td align='left'>$".$invested. "</td></tr> ";
+			//echo "</tr></table>";
+			echo "<tr><td align='right'>Returns:</td><td align='left'>$".$sold."</td></tr>";
+			echo "<tr>";
+			if ($invested > $sold){
+				$amount = $invested - $sold;
+				echo "<td align='right'>Loss:</td><td align='left'>$".$amount."</td>";
+				} 	
+			elseif ($invested < $sold){
+				$amount = $sold - $invested;
+				echo "<td align='right'>Profit:</td><td align='left'>$".$amount."</td>";
+				//echo "Profit : $$amount <br/>";
+			}
+			else echo "<td align='right'>Even:</td><td align='left'>$".$amount."</td>";
+			//else echo "Even : $0 <br/>";	
+			echo "</tr></table>";	
+		}
+		/*$sold = getReturnsTotal($link);
+		echo "Returns: $sold <br/>";
+		if ($invested > $sold){
+			$amount = $invested - $sold;
+			echo "Loss : $$amount<br/>";
+		} 	
+		elseif ($invested < $sold){
+			$amount = $sold - $invested;
+			echo "Profit : $$amount <br/>";
+		}
+		else echo "Even : $0 <br/>";*/	
+	    ?> 
           </div>
         </div>
         <div class="col-sm-3">
