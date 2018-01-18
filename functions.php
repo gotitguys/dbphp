@@ -52,6 +52,76 @@ function getTotalSold($link,$maxID){
 ?>
 
 <?php
+function getTotalSoldByID($link, $maxID){
+	$array = array();
+	//for ($x=0; $x < $maxID; $x++){
+		//$product =($x+1);
+		$sql = "SELECT SUM(qty_sold), p_id FROM contains group by p_id order by p_id";
+		$result = pg_query($link, $sql);
+		if (!$result) echo "****ERROR****<br/>";
+		while($row = pg_fetch_assoc($result)){
+			$total = $row["sum"];
+			$id = $row["p_id"];
+		$array += array_fill($id,1,$total);  
+		}
+		//$array += array_fill($id,1,$total);  
+	//}
+		//print_r($array);
+	
+	return $array;
+}
+?>
+
+<?php
+function getTotalPurchasedByID($link, $maxID){
+	$array = array();
+	//for ($x=0; $x < $maxID; $x++){
+		//$product =($x+1);
+		$sql = "SELECT SUM(qty_received), p_id FROM receives group by p_id order by p_id";
+		$result = pg_query($link, $sql);
+		if (!$result) echo "****ERROR****<br/>";
+		while($row = pg_fetch_assoc($result)){
+			$total = $row["sum"];
+			$id = $row["p_id"];
+		$array += array_fill($id,1,$total);  
+		}
+		//$array += array_fill($id,1,$total);  
+	//}
+		//print_r($array);
+	
+	return $array;
+}
+?>
+
+<?php
+function calculateStockByID($totalPurchasedByID, $totalSoldByID, $maxID){
+	$array = array();
+	for ($x=0; $x < $maxID; $x++){
+		$index = ($x+1);
+		if(empty($totalSoldById[$index])){
+			$inStock = $totalPurchasedByID[$index];
+		}
+		else {
+		$inStock = $totalPurchasedByID[$index] - $totalSoldByID[$index];
+		}
+		$array += array_fill($index,1,$inStock);
+	}	
+	return $array;
+}
+?>
+
+<?php
+function getTotalThresholdByID($threshold, $derivedStockByID, $maxID){
+	$count = 0;
+	for ($x=0; $x < $maxID; $x++){
+		$index = ($x+1);
+		if ($derivedStockByID[$index] <= $threshold)
+			$count++;
+	}	
+	return $count;
+}
+?>
+<?php
 function calculateStock($totalPurchased, $totalSold, $maxID){
 	$array = array();
 	for ($x=0; $x < $maxID; $x++){
