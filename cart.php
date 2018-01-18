@@ -39,6 +39,14 @@ display: block;
          font-weight: bold;
          font-size: 68px;
 }
+table {
+width: 40%;
+height: 40px;
+
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+
 </style>
 </head>
 <body>
@@ -72,6 +80,9 @@ display: block;
 </div>
 </div>
 </nav>
+<center>
+<h2>Cart Total</h2>
+<hr> 
 <?php
 session_start();
 require 'connect.php';
@@ -124,7 +135,7 @@ if(isset($_GET['p_id'])){
 }
 ?>
 
-<table cellpadding="2" cellspacing="2" border="1"><tr>
+<center><table cellpadding="2" cellspacing="2" border="1"><tr>
 <?php
 echo '<table cellpadding="2" cellspacing="2" border="1"><tr><th>Option</th>
 <th>Id </th>
@@ -154,7 +165,7 @@ echo "</tr>";
         }
 ?>
 <tr>
-  <td colspan="5" align="right">Sum</td>
+  <td colspan="5" align="right">Sum  </td>
   <td align="left"><?php echo $s; ?></td>
 </tr>
 </table>
@@ -162,7 +173,10 @@ echo "</tr>";
 <a href="shop.php">Continue Shopping</a>
 <br>
 <br>
-
+<hr>
+<center>
+<h2>Shipping </h2>
+<hr>
 <a href="orderpdf.php">Continue Shopping</a>
 </body>
 </html>

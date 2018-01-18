@@ -22,7 +22,7 @@ function login() {
  require_once 'connect.php';
 $fname = htmlspecialchars($_POST['user']);
 $pword = htmlspecialchars($_POST['pass']);
-$sql = "SELECT * FROM Users WHERE u_fname = '$fname' AND u_password = '$pword'";
+$sql = "SELECT * FROM customer WHERE email = '$fname' AND pword = '$pword'";
 $search = pg_query($link, $sql);
 if(pg_num_rows($search)==0)
 {
