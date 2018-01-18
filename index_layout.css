@@ -1,6 +1,6 @@
 /*layout css*/
 body {
-	background-color:gray;
+	background-color: #bfbfbf;
 }
 div.wrapper {
 	position: absolute;
@@ -37,7 +37,7 @@ div.lmenu{
 	width: 160px;
 	height: 500px;
     padding: 10px;
-	border: 1px dashed black;
+	border: 1px solid black;
 }
 
 div.rmenu{
@@ -47,10 +47,13 @@ div.rmenu{
 	width: 160px;
 	height: 500px;
     padding: 10px; 
-	border: 1px dashed black;
+	border: 1px solid black;
 }
 
 div.content{
+
+/*	background: url("cback.jpg") no-repeat;
+	background-size:100% 100%;*/
 	position: absolute;
 	top: 196px;
 	left: 201px;

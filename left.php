@@ -7,9 +7,13 @@ echo <<<EOT
 <li><h2>Menu</h2></li>
 <hr>	
 <li><a href='index.php'>Home</a></li>
-<li><a href='quiz.php'>Quiz</a></li>
-<li><a href='profile.php'>Profile</a></li>
+<br>
+<li><a href='shop.php'>Shop</a></li>
+<br>
+<li><a href='contact.php'>Contact</a></li>
+<br>
 <li><a href='logout.php'>Logout</a></li>
+<br>
 </ul>
 EOT;
 }
@@ -20,9 +24,13 @@ else{
 <li><h2>Menu</h2></li>
 <hr>	
 <li><a href='index.php'>Home</a></li>	
+<br>
 <li><a href='login.php'>Login</a></li>
+<br>
 <li><a href='register.php'>Register</a></li>
+<br>
 <li><a href ='shop.php'>Shop</a></li>
+<br>
 <li><a href ='contact.php'>Contact</a></li>
 </ul>
 EOT;

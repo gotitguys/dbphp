@@ -5,7 +5,7 @@ body {
 }
 div.wrapper {
 	font-family: Monotype Corsiva , cursive, serif;
-	color: #FFDB19;	
+	color: #990033;	
 }
 
 div.header {
@@ -15,7 +15,7 @@ div.header {
 }
 
 div.lmenu{
-	text-decoration: underline;	
+/*	text-decoration: underline;	*/
 	text-align: left; 
 	list-style-image: url(small_skull_wheel.png);
 	list-style-position: outside;
@@ -23,7 +23,7 @@ div.lmenu{
 
 div.rmenu{
 	/*text-align: center;*/
-	text-decoration: underline;	
+/*	text-decoration: underline;	*/
 	text-align: left; 
 	list-style-image: url(small_skull_wheel.png);
 	list-style-position: outside;
@@ -79,15 +79,15 @@ a {
 }
 
 a:link {
-	color: blue;
+	color: black;
 }
 
 a:visited{
-	color: gold;
+	color: blue;
 }
 
 a:hover{
-	color: orange;
+	color: green;
 }
 
 a:active{

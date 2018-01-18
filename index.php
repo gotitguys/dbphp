@@ -28,13 +28,13 @@
 			<?php include 'right.php' ?>	 
 		</div>
 		<div class="content">
-			<h1 class="firstpage"> Store </h1>
+		<!--	<h1 class="firstpage"> Store </h1>
 			<p class="gallery"> Buy Stuff Now!!!<p>
 			<p class="gallery">Or Ana Will Beat You Up!!!<p>
 			<a href='test.php'>Testing connection and reading Customers from database</a>	
 			<form action="testpdf.php">
 			<button type="submit">Sample PDF using Customer Table</button>
-			</form>			
+			</form>	-->		
 				
 		</div>
 		<div class="footer">

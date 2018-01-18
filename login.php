@@ -41,7 +41,7 @@ else
 	$_SESSION['u_password'] = $row['u_password'];
 	$_SESSION['u_fname'] = $row['u_fname'];
 	$_SESSION['u_lname'] = $row['u_lname'];
-	header('location: quiz.php');
+	header('location: shop.php');
 	}
 	// DEBUG 
 	//var_dump($_SESSION);
