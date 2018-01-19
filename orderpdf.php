@@ -98,7 +98,7 @@ $total = round($total,2);
 
 
 
-$result = pg_exec($link, "SELECT * FROM customer WHERE customer_id='1'");
+$result = pg_exec($link, "SELECT * FROM customer WHERE customer_id=1");
 $numregs=pg_numrows($result);
 $id= pg_result($result,'customer_id');
 $fname = pg_result($result,'fname');
@@ -159,7 +159,7 @@ $name = $fname." ".$lname;
 
 
 
-$result5 = pg_exec($link, "SELECT * FROM address WHERE customer_id='1'");
+$result5 = pg_exec($link, "SELECT * FROM address WHERE customer_id=1");
 $numregs5=pg_numrows($result5);
 $stno= pg_result($result5,'Street_num');
 $stname = pg_result($result5,'Street_name');
@@ -170,8 +170,8 @@ $zip = pg_result($result5,'zip');
   $pdf->Cell(10,5,' ',0,1);
   $pdf->Cell(10,5,'SHIPPING ADDRESS:',0,1);
   $pdf->Cell(10,5,$name,0,1);
-  $pdf->Cell(10,5,$stno.$stname,0,1);
-  $pdf->Cell(10,5,$city.", ".$state.$zip,0,1);
+  $pdf->Cell(10,5,$stno." ".$stname,0,1);
+  $pdf->Cell(10,5,$city.", ".$state." ".$zip,0,1);
 	
 
 
