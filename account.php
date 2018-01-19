@@ -214,6 +214,30 @@ Type: <?php echo $row3['type']; ?>
   <button type="button">Edit</button>
 
 <br>
+
+
+<?php 
+$result4 = pg_query($link,"SELECT * FROM orders WHERE order_num ='3'");
+$row4 =pg_fetch_assoc($result4);
+?>
+
+
+<div class="container">
+  <h2>Order History </h2>
+<hr> 
+ <p>
+order date : <?php echo $row4['order_date'];	?>
+<br>
+Time: <?php echo $row4['time'];	?>
+<br>
+<?php 
+$result5 = pg_query($link,"SELECT * FROM contains, products WHERE order_num ='3', contains.p_id=products.p_id");
+while ($row5 =pg_fetch_assoc($result5)){
+	echo $row5['p_id'];
+	echo "<br>";
+}
+?>
+</p>
 <br>
 <br>
 

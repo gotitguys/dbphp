@@ -52,7 +52,7 @@ require 'connect.php';
 $result2 = pg_exec($link, "SELECT * FROM products WHERE p_id='13'");
 $numregs2=pg_numrows($result2);
 $id= pg_result($result2,'p_id');
-$name = pg_result($result2,'p_name');
+$name1 = pg_result($result2,'p_name');
 $price= pg_result($result2,'s_price');
 $quantity;
 $quantity = 2;
@@ -83,15 +83,33 @@ $subtotal3 =  $price3 * $quantity3;
 //Calculation of order 
 $subtotal1= $subtotal + $subtotal2 + $subtotal3;
 $taxrate= .0725;
+$tax= 7.25.'%';
 $ship= 7.99;
 
-$total= ($subtotal1 * $taxrate) + $subtotal + $ship;
+$total= (($subtotal1 * $taxrate) + $subtotal1 )+ $ship;
 $total = round($total,2);
 
 // order table
 
 
    
+  $pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,5,' ',0,1);
+
+
+
+$result = pg_exec($link, "SELECT * FROM customer WHERE customer_id='1'");
+$numregs=pg_numrows($result);
+$id= pg_result($result,'customer_id');
+$fname = pg_result($result,'fname');
+$lname= pg_result($result,'lname');
+$name = $fname." ".$lname;
+
+
+
+  $pdf->Cell(20,5,'ORDER FOR: '.$name,0,1);
+
+
   $pdf->Cell(10,5,' ',0,1);
   $pdf->Cell(10,5,' ',0,1);
 
@@ -105,7 +123,7 @@ $total = round($total,2);
   $pdf->Cell(20,6,'Subtotal',1,1,0,0);
 
   $pdf->Cell(10,6,$id,1,0,0,0);
-  $pdf->Cell(41,6,$name,1,0,0,0);
+  $pdf->Cell(41,6,$name1,1,0,0,0);
   $pdf->Cell(15,6,$price,1,0,0,0);
   $pdf->Cell(20,6,$quantity,1,0,0,0);
   $pdf->Cell(20,6,$subtotal,1,1,0,0);
@@ -122,28 +140,39 @@ $total = round($total,2);
   $pdf->Cell(20,6,$quantity3,1,0,0,0);
   $pdf->Cell(20,6,$subtotal3,1,1,0,0);
 
-  $pdf->Cell(86,6,'sum',0,0,0,0);
+  $pdf->Cell(86,6,'Sum',0,0,0,0);
   $pdf->Cell(20,6,$subtotal1,1,1,0,0);
 
+  $pdf->Cell(86,6,'Shipping ',0,0,0,0);
+  $pdf->Cell(20,6,$ship,1,1,0,0);
+
+  $pdf->Cell(86,6,'Tax rate',0,0,0,0);
+  $pdf->Cell(20,6,$tax,1,1,0,0);
+  
+  $pdf->Cell(86,6,'Total Due',0,0,0,0);
+  $pdf->Cell(20,6,'$'.$total,1,1,0,0);
 //session_start();
 //require 'connect.php';
 //require 'item.php';
 //require 'cart.php';
-$result = pg_exec($link, "SELECT * FROM customer WHERE customer_id='1'");
-$numregs=pg_numrows($result);
-$id= pg_result($result,'customer_id');
-$fname = pg_result($result,'fname');
-$lname= pg_result($result,'lname');
-$name = $fname." ".$lname;
 
 
 
+
+$result5 = pg_exec($link, "SELECT * FROM address WHERE customer_id='1'");
+$numregs5=pg_numrows($result5);
+$stno= pg_result($result5,'Street_num');
+$stname = pg_result($result5,'Street_name');
+$city = pg_result($result5,'City');
+$state = pg_result($result5,'State');
+$zip = pg_result($result5,'zip');
   $pdf->Cell(10,5,' ',0,1);
   $pdf->Cell(10,5,' ',0,1);
-  $pdf->Cell(10,5,' ',0,1);
-  $pdf->Cell(10,5,' ',0,1);
-  $pdf->Cell(10,5,'Shipping Address',0,1);
+  $pdf->Cell(10,5,'SHIPPING ADDRESS:',0,1);
   $pdf->Cell(10,5,$name,0,1);
+  $pdf->Cell(10,5,$stno.$stname,0,1);
+  $pdf->Cell(10,5,$city.", ".$state.$zip,0,1);
+	
 
 
 /*for($i=1;$i<=3;$i++)
