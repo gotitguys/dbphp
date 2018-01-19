@@ -22,7 +22,7 @@
 	$highestCurrentStock = getHighestCurrentStock($maxID,$derivedStockByID);
 
 	if (isset($_POST['publisher'])){
-		print_r($_POST['publisher']);
+		//print_r($_POST['publisher']);
 		$publisher = $_POST['publisher'];
 	}
 
@@ -58,8 +58,13 @@
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
+	height: 165px;
       margin-bottom: 0;
       border-radius: 0;
+	background-image:url('BANNER.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100% ;
+	position: center;
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -99,17 +104,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <!--<a class="navbar-brand" href="#">Logo</a>-->
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+       <!-- <li class="active"><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Contact</a></li>-->
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+       <!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
       </ul>
     </div>
   </div>
@@ -469,7 +474,6 @@
 </div>
 
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
 </footer>
 
 </body>

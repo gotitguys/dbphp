@@ -160,7 +160,7 @@ $pdf->Cell(45,8,$diff,1,1,'C',$fill);
 $fill=!$fill;
 
 //DERIVED STOCK
-/*
+
 $pdf->AddPage();
 
 session_start();
@@ -200,7 +200,7 @@ $result = pg_exec($link,$sql);
 
 
 $sql2 = "SELECT SUM(qty_received) FROM receives GROUP BY p_id ORDER BY p_id";
-$result2 = pg_exec($link,$sql);
+$result2 = pg_exec($link,$sql2);
 //$numregs = pg_numrows($result);
 //$purchased = pg_result($result2,'sum');
 //$purchased = number_format((float)$purchased,2);
@@ -208,9 +208,18 @@ $result2 = pg_exec($link,$sql);
 
 $fill=false;
 $i=0;
+$j=0;
 while($i<$numRows3)
 {
-	$sold = pg_result($result,$i,'sum');
+	$sold_pid = pg_result($result,$j,'p_id');
+	if($sold_pid == $i+1){
+		$sold = pg_result($result,$j,'sum');
+		$j++;
+	}
+	else{
+		$sold = 0;
+	}
+
 	$purchased = pg_result($result2,$i,'sum');
 	$stock = $purchased - $sold;
 	$name = pg_result($result3,$i,'p_name');
@@ -223,7 +232,7 @@ while($i<$numRows3)
 	$fill=!$fill;
 	$i++;
 }
-*/
+
 
 
 
