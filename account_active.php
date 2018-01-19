@@ -1,5 +1,14 @@
- <!DOCTYPE html>
-<html lang ="en"
+<!DOCTYPE html>
+<html lang="en">
+
+
+<?php
+
+session_start();
+require_once('connect.php');
+include 'util.php';
+?>
+
 <head>
 <title>CAVIE</title>
 <meta charset="utf-8">
@@ -8,7 +17,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-/* Remove the navbar's default rounded borders and increase the bottom margin */
+/* Remove the navbar's default rounded borders and increase the bottom margin */ 
 .navbar {
         margin-bottom: 50px;
         border-radius: 0;
@@ -39,14 +48,6 @@ display: block;
          font-weight: bold;
          font-size: 68px;
 }
-table {
-width: 40%;
-height: 40px;
-
-}
-tr:nth-child(even) {background-color: #f2f2f2;}
-
-
 </style>
 </head>
 <body>
@@ -56,18 +57,17 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 <h1 id="jumboHeader">Captain Ana vs. Incredible Esteban</h1>
 </div>
 </div>
-
+ 
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
 <div class="navbar-header">
 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
 <span class="icon-bar"></span>
-
 <span class="icon-bar"></span>
 <span class="icon-bar"></span>
 </button>
 <a class="navbar-brand" href="index.php">Home</a>
-</div>
+</div>  
 <div class="collapse navbar-collapse" id="myNavbar">
 <ul class="nav navbar-nav">
 <li><a class="navbar-brand" href="shop.php">Products</a></li>
@@ -80,10 +80,39 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 </div>
 </div>
 </nav>
-<center>
-<h1> Thank You For your Order</h1>
-<a href="orderpdf.php">Receipt</a>
+<?php 
+$result = pg_query($link,"SELECT * FROM customer WHERE customer_id ='1'");
+$row = pg_fetch_assoc($result);
+?> 
+<h1> Welcome! <?php echo $row['fname']." ".$row['lname']?> </h1>
 
+<div class="container">
+  <h2> </h2>
+  <p> </p>
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#personal">Personal Information</button>
+  <div id="personal" class="collapse">
+	stuff for personal info 
+  </div>
+</div>
+
+<div class="container">
+  <h2> </h2>
+  <p> </p>
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#ship">    Shipping  Address   </button>
+  <div id="ship" class="collapse">
+	stuff for ship
+  </div>
+</div>
+
+
+<div class="container">
+  <h2> </h2>
+  <p> </p>
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#payment">Payment Information</button>
+  <div id="payment" class="collapse">
+	stuff payment
+  </div>
+</div>
 
 </body>
 </html>

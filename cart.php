@@ -82,7 +82,6 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 </nav>
 <center>
 <h2>Cart Total</h2>
-<hr> 
 <?php
 session_start();
 require 'connect.php';
@@ -144,7 +143,7 @@ echo '<table cellpadding="2" cellspacing="2" border="1"><tr><th>Option</th>
 <th>Quantity </th>
 <th>Subtotal </th>
 </tr>';
-
+global $cart;
 $cart = unserialize(serialize($_SESSION['cart']));
 $s = 0;
 
@@ -176,8 +175,32 @@ echo "</tr>";
 <hr>
 <center>
 <h2>Shipping </h2>
+	<h3>shipping cost: 7.99 </h3> 
 <hr>
-<a href="orderpdf.php">Continue Shopping</a>
+Tax rate: 7.25%
+<br>
+Total:
+<?php 
+global $ship;
+	$ship = 7.99;
+global $sum;
+	$sum = $s;
+global $tax;
+$tax = .0725;
+global $total;
+$total = ($sum * $tax) + $sum + $ship;
+echo round($total,2);
+?>
+ 
+ <br><br>
+<form action="thankyou.php">
+<button type="submit"> Checkout </button>
+</form>
+<br>
+<br>
+<br>
+<br>
+<!--<a href="orderpdf.php">Continue Shopping</a>-->
 </body>
 </html>
 

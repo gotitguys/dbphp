@@ -11,11 +11,11 @@ function Header()
     // Arial bold 15
     $this->SetFont('Arial','B',15);
     // Move to the right
-    $this->Cell(80);
+    $this->Cell(60);
     // Title
-    $this->Cell(30,10,'Title',1,0,'C');
+    $this->Cell(90,10,'Captain Ana Vs Incredible Esteban',1,0,'C');
     // Line break
-    $this->Ln(20);
+    $this->Ln(30);
 }
 
 // Page footer
@@ -35,7 +35,118 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',12);
-for($i=1;$i<=40;$i++)
-    $pdf->Cell(0,10,'Printing line number '.$i,0,1);
+
+
+
+session_start();
+require 'connect.php';
+//include 'cart.php';
+//CAVIE 
+  $pdf->Cell(10,5,'CAVIE',0,1);
+  $pdf->Cell(0,5,'711 Hero St Suite A',0,1);
+  $pdf->Cell(0,5,'Bakersfield, CA 93309',0,1);
+
+
+//order query 
+//first product 
+$result2 = pg_exec($link, "SELECT * FROM products WHERE p_id='13'");
+$numregs2=pg_numrows($result2);
+$id= pg_result($result2,'p_id');
+$name = pg_result($result2,'p_name');
+$price= pg_result($result2,'s_price');
+$quantity;
+$quantity = 2;
+$subtotal;
+$subtotal =  $price * $quantity;
+
+//second product
+$result3 = pg_exec($link, "SELECT * FROM products WHERE p_id='4'");
+$numregs3=pg_numrows($result3);
+$id2= pg_result($result3,'p_id');
+$name2 = pg_result($result3,'p_name');
+$price2 = pg_result($result3,'s_price');
+$quantity2;
+$quantity2 = 1;
+$subtotal2;
+$subtotal2 =  $price2 * $quantity2;
+//third product 
+$result4 = pg_exec($link, "SELECT * FROM products WHERE p_id='14'");
+$numregs4=pg_numrows($result4);
+$id3= pg_result($result4,'p_id');
+$name3 = pg_result($result4,'p_name');
+$price3 = pg_result($result4,'s_price');
+$quantity3;
+$quantity3 = 1;
+$subtotal3;
+$subtotal3 =  $price3 * $quantity3;
+
+//Calculation of order 
+$subtotal1= $subtotal + $subtotal2 + $subtotal3;
+$taxrate= .0725;
+$ship= 7.99;
+
+$total= ($subtotal1 * $taxrate) + $subtotal + $ship;
+$total = round($total,2);
+
+// order table
+
+
+   
+  $pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,5,' ',0,1);
+
+  $pdf->Cell(20,5,'ORDER SUMMARY: ',0,1);
+  //$pdf->Cell(10,5,' ',0,1);
+  //$pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,6,'Id',1,0,0,0);
+  $pdf->Cell(41,6,'Name',1,0,0,0);
+  $pdf->Cell(15,6,'Price',1,0,0,0);
+  $pdf->Cell(20,6,'quantity',1,0,0,0);
+  $pdf->Cell(20,6,'Subtotal',1,1,0,0);
+
+  $pdf->Cell(10,6,$id,1,0,0,0);
+  $pdf->Cell(41,6,$name,1,0,0,0);
+  $pdf->Cell(15,6,$price,1,0,0,0);
+  $pdf->Cell(20,6,$quantity,1,0,0,0);
+  $pdf->Cell(20,6,$subtotal,1,1,0,0);
+
+  $pdf->Cell(10,6,$id2,1,0,0,0);
+  $pdf->Cell(41,6,$name2,1,0,0,0);
+  $pdf->Cell(15,6,$price2,1,0,0,0);
+  $pdf->Cell(20,6,$quantity2,1,0,0,0);
+  $pdf->Cell(20,6,$subtotal2,1,1,0,0);
+  
+  $pdf->Cell(10,6,$id3,1,0,0,0);
+  $pdf->Cell(41,6,$name3,1,0,0,0);
+  $pdf->Cell(15,6,$price3,1,0,0,0);
+  $pdf->Cell(20,6,$quantity3,1,0,0,0);
+  $pdf->Cell(20,6,$subtotal3,1,1,0,0);
+
+  $pdf->Cell(86,6,'sum',0,0,0,0);
+  $pdf->Cell(20,6,$subtotal1,1,1,0,0);
+
+//session_start();
+//require 'connect.php';
+//require 'item.php';
+//require 'cart.php';
+$result = pg_exec($link, "SELECT * FROM customer WHERE customer_id='1'");
+$numregs=pg_numrows($result);
+$id= pg_result($result,'customer_id');
+$fname = pg_result($result,'fname');
+$lname= pg_result($result,'lname');
+$name = $fname." ".$lname;
+
+
+
+  $pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,5,' ',0,1);
+  $pdf->Cell(10,5,'Shipping Address',0,1);
+  $pdf->Cell(10,5,$name,0,1);
+
+
+/*for($i=1;$i<=3;$i++)
+    $pdf->Cell(0,10,'Printing line number '.$i,0,1);*/
 $pdf->Output();
 ?>
