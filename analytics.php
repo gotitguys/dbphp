@@ -7,6 +7,19 @@
 	include 'functions.php';
 
 	$publisher = array();
+	$totalSoldByID = array();
+	$totalPurchasedByID = array();
+	$derivedStockByID = array();
+	$lowestCurrentStock;
+	$highestestCurrentStock;
+	$maxID = getMaxId($link);
+	
+	//variables for derived stock
+	$totalSoldByID = getTotalSoldByID($link, $maxID);
+	$totalPurchasedByID = getTotalPurchasedByID($link, $maxID);	
+	$derivedStockByID = calculateStockByID($totalPurchasedByID, $totalSoldByID, $maxID);
+	$lowestCurrentStock = getLowestCurrentStock($maxID,$derivedStockByID);
+	$highestCurrentStock = getHighestCurrentStock($maxID,$derivedStockByID);
 
 	if (isset($_POST['publisher'])){
 		print_r($_POST['publisher']);
@@ -131,15 +144,39 @@
 	  </tr>
 
 	  <tr>
-	    <td><select name='threshold'>
-	    <option value="0">	SELECT THRESHOLD </option>	
+	  <td style="color:red">LOW</td>
+	  </tr>
+
+	  <tr>
+	    <td><select name='lowthreshold'>
+	    <option value="0">	SELECT LOW THRESHOLD </option>	
 	    <?php
 		$thresholdSelect = 50;
-		$x = 0;
-		while($x < $thresholdSelect){
+		$x = $lowestCurrentStock;
+		while($x <= $highestCurrentStock){
             ?>
-			<option name='threshold' value= "<?php echo ($x+1)?>">
-			<?php echo ($x+1)?>
+			<option name='lowthreshold' value= "<?php echo ($x)?>">
+			<?php echo ($x)?>
+			</option>
+	 	<?php $x++; } ?> 	
+
+	    </select></td>
+	    </tr>
+
+	  <tr>
+	  <td style="color:blue">HIGH</td>
+	  </tr>
+
+	  <tr>
+	    <td><select name='highthreshold'>
+	    <option value="0">	SELECT HIGH THRESHOLD </option>	
+	    <?php
+		$thresholdSelect = 50;
+		$x = $lowestCurrentStock;
+		while($x <= $highestCurrentStock){
+            ?>
+			<option name='highthreshold' value= "<?php echo ($x)?>">
+			<?php echo ($x)?>
 			</option>
 	 	<?php $x++; } ?> 	
 
@@ -212,34 +249,36 @@
 
     <div class="col-sm-2 text-center">
       <div class="well">		 
-      <h1>DERIVED STOCK</h1>
+      <h1>Derived Stock</h1>
 	    <?php
-		$threshold = 5;
-		//print_r($_POST['threshold']);
-		$threshold = ($_POST['threshold']);
-		if(isset($_POST['threshold'])){
-			$threshold = $_POST['threshold'];
-			echo "DEBUG: threshold is set to ".$threshold."<br>";
+		//$lowThreshold = 5;
+		if(isset($_POST['lowthreshold']) && !empty($_POST['lowthreshold'])){
+			$lowThreshold = $_POST['lowthreshold'];
+			echo "<p style='color:red' > Low threshold is set to ".$lowThreshold."<br>";
 		}
-		else echo "DEFAULT THRESHOLD = ".$threshold."<br>";
-		$maxID = getMaxId($link);
-		$
-		//echo "BACK FROM FUNCTION CALL<br/>";
-		//echo "TEST: maxid = $maxID <br />";
-		//$totalPurchased = array();
-		//$totalSoldByID = array();
-		//$totalSoldByID = array();
-		//var_dump($totalSoldByID);
+		else {
+			$lowThreshold = 5;
+			 echo "DEFAULT LOW THRESHOLD = ".$lowThreshold."<br>";
+		}
+		echo "<h3 style='color:red;'>Lowest derived stock count is ".$lowestCurrentStock."</h3>";
+	
+		//$highThreshold = 20;
+		if(isset($_POST['highthreshold']) && !empty($_POST['lowthreshold'])){
+			$highThreshold = $_POST['highthreshold'];
+			echo "<p style='color:blue' > High threshold is set to ".$highThreshold."<br>";
+		}
+		else{
+			$highThreshold = 20;
+			 echo "DEFAULT HIGH THRESHOLD = ".$highThreshold."<br>";
+		}
+
+		echo "<h3 style='color:blue;'>Highest derived stock count is ".$highestCurrentStock."</h3>";
 		$totalSoldByID = getTotalSoldByID($link, $maxID);
-		//print_r($totalSoldByID);
 		echo "<br>";
-		//$totalPurchasedByID = array();
 		$totalPurchasedByID = getTotalPurchasedByID($link, $maxID);	
-		//print_r($totalPurchasedByID);
 		$derivedStockByID = calculateStockByID($totalPurchasedByID, $totalSoldByID, $maxID);
-		//print_r($derivedStockByID);
-		$totalThresholdByID = getTotalThresholdByID($threshold, $derivedStockByID, $maxID);
-		echo  "<br>Total Below or at Threshold = ".$totalThresholdByID."<br>"; 
+		$totalThresholdByID = getTotalThresholdByID($lowThreshold, $derivedStockByID, $maxID);
+		echo  "<br>Total number of products at or below low threshold = ".$totalThresholdByID."<br>"; 
 		
 	    ?>
       </div>	
@@ -249,7 +288,7 @@
 
     <div class="col-sm-2 text-center"> 
       <div class="well">		 
-      <h1>ORDER DATA</h1>
+      <h1>Order Data</h1>
       </div>	
     </div>
 
@@ -257,7 +296,7 @@
 
     <div class="col-sm-2 text-center"> 
       <div class="well">		 
-      <h1>CUSTOMER DATA</h1>
+      <h1>Customer Data</h1>
       </div>	
     </div>
 

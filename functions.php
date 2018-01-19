@@ -96,15 +96,17 @@ function getTotalPurchasedByID($link, $maxID){
 <?php
 function calculateStockByID($totalPurchasedByID, $totalSoldByID, $maxID){
 	$array = array();
+	$debug = false;
 	for ($x=0; $x < $maxID; $x++){
 		$index = ($x+1);
-		if(empty($totalSoldById[$index])){
-			$inStock = $totalPurchasedByID[$index];
-		}
-		else {
 		$inStock = $totalPurchasedByID[$index] - $totalSoldByID[$index];
-		}
 		$array += array_fill($index,1,$inStock);
+	
+		if($debug){
+		echo "<p style='color:orange;'>DEBUG: TPBI ".$index." = ".$totalPurchasedByID[$index]."</p>";
+		echo "<p style='color:green;'>DEBUG: TSBI ".$index." = ".$totalSoldByID[$index]."</p>";
+		echo "<p style='color:red;'>DEBUG: Difference ".$index." = ".$inStock."</p>";
+		}
 	}	
 	return $array;
 }
@@ -121,6 +123,7 @@ function getTotalThresholdByID($threshold, $derivedStockByID, $maxID){
 	return $count;
 }
 ?>
+
 <?php
 function calculateStock($totalPurchased, $totalSold, $maxID){
 	$array = array();
@@ -196,6 +199,42 @@ function getSelectedReturnsTotal($link,$query2){
   		$index = $row["return"];
   	}
 	return $index;
+}
+?>
+
+<?php
+function getLowestCurrentStock($maxID, $derivedStockByID){
+	$lowest = 1000;
+	$debug = false;
+	//var_dump($derivedStockByID);	
+
+	foreach($derivedStockByID as $value){
+		if($debug){
+			echo "<p style='color:green;'>".$value."<br></p>";
+		}
+		if($value < $lowest){
+			$lowest = $value;
+		}
+	}	
+	return $lowest;
+}
+?>
+
+<?php
+function getHighestCurrentStock($maxID, $derivedStockByID){
+	$highest = -1;
+	$debug = false;
+	//var_dump($derivedStockByID);	
+
+	foreach($derivedStockByID as $value){
+		if($debug){
+			echo "<p style='color:green;'>".$value."<br></p>";
+		}
+		if($value > $highest){
+			$highest = $value;
+		}
+	}	
+	return $highest;
 }
 ?>
 
