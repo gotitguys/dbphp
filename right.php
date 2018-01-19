@@ -1,7 +1,7 @@
 <?php
 	session_start();
 
-if ($_SESSION['active']){
+/*if ($_SESSION['active']){
 echo <<<EOT
 <ul>
 <li><h2>Menu</h2></li>
@@ -29,6 +29,6 @@ else{
 <li><a href='register.php'>Register</a></li>
 </ul>
 EOT;
-}
+}*/
 
 ?>

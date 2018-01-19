@@ -89,6 +89,17 @@ $ship= 7.99;
 $total= (($subtotal1 * $taxrate) + $subtotal1 )+ $ship;
 $total = round($total,2);
 
+
+// customer 
+
+$result5 = pg_exec($link, "SELECT * FROM address WHERE customer_id=1");
+$numregs5=pg_numrows($result5);
+$stno= pg_result($result5,'Street_num');
+$stname = pg_result($result5,'Street_name');
+$city = pg_result($result5,'City');
+$state = pg_result($result5,'State');
+$zip = pg_result($result5,'zip');
+
 // order table
 
 
@@ -106,9 +117,12 @@ $lname= pg_result($result,'lname');
 $name = $fname." ".$lname;
 
 
-
-  $pdf->Cell(20,5,'ORDER FOR: '.$name,0,1);
-
+  $pdf->Cell(10,5,'ORDER # 0019',0,1);
+  $pdf->Cell(5,5,' ',0,1);
+  $pdf->Cell(20,5,'ORDER FOR:',0,1);
+  $pdf->Cell(20,5,$name,0,1);
+  $pdf->Cell(10,5,$stno." ".$stname,0,1);
+  $pdf->Cell(10,5,$city.", ".$state." ".$zip,0,1);
 
   $pdf->Cell(10,5,' ',0,1);
   $pdf->Cell(10,5,' ',0,1);
@@ -159,13 +173,6 @@ $name = $fname." ".$lname;
 
 
 
-$result5 = pg_exec($link, "SELECT * FROM address WHERE customer_id=1");
-$numregs5=pg_numrows($result5);
-$stno= pg_result($result5,'Street_num');
-$stname = pg_result($result5,'Street_name');
-$city = pg_result($result5,'City');
-$state = pg_result($result5,'State');
-$zip = pg_result($result5,'zip');
   $pdf->Cell(10,5,' ',0,1);
   $pdf->Cell(10,5,' ',0,1);
   $pdf->Cell(10,5,'SHIPPING ADDRESS:',0,1);

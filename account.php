@@ -226,16 +226,40 @@ $row4 =pg_fetch_assoc($result4);
   <h2>Order History </h2>
 <hr> 
  <p>
-order date : <?php echo $row4['order_date'];	?>
+order date: <?php echo $row4['order_date'];	?>
 <br>
 Time: <?php echo $row4['time'];	?>
 <br>
 <?php 
-$result5 = pg_query($link,"SELECT * FROM contains, products WHERE order_num ='3', contains.p_id=products.p_id");
-while ($row5 =pg_fetch_assoc($result5)){
-	echo $row5['p_id'];
+$result5 = pg_query($link,"SELECT * FROM products WHERE  p_id = '24'");
+$result6 = pg_query($link,"SELECT * FROM products WHERE  p_id = '6'");
+$result7 = pg_query($link,"SELECT * FROM products WHERE  p_id = '10'");
+$result8 = pg_query($link,"SELECT * FROM products WHERE  p_id = '3'");
+$row5 =pg_fetch_assoc($result5);
+$row6 =pg_fetch_assoc($result6);
+$row7 =pg_fetch_assoc($result7);
+$row8 =pg_fetch_assoc($result8);
+$price1 = $row5['s_price'];
+$price2 = $row6['s_price'];
+$price3 = $row7['s_price'];
+$price4 = $row8['s_price'];
+$taxrate = .0725;
+$totalp = $price1 + $price2 + $price3 +$price4;
+$subt = ($totalp * $taxrate) +$totalp;
+$total = $subt +7.99;
+$total = round($total, 2);
 	echo "<br>";
-}
+	echo $row5['p_id']." ".$row5['p_name'];
+	echo "<br>";
+
+	echo $row6['p_id']." ". $row6['p_name'];
+	echo "<br>";
+	echo $row7['p_id']." ".$row7['p_name'];
+	echo "<br>";
+	echo $row8['p_id']." ".$row8['p_name'];
+	echo "<br>";
+	echo "<br>";
+	echo "$". "Total: ".$total;
 ?>
 </p>
 <br>
