@@ -196,6 +196,7 @@
     <div class="col-sm-2 text-center">
       <div class="well">
 	<h1>Profit/Loss</h1>
+		<hr style='border-top: 1px solid red;'>
 	<?php
 		showSelection($publisher,$link);
 		if(!empty($publisher)){
@@ -250,6 +251,7 @@
     <div class="col-sm-2 text-center">
       <div class="well">		 
       <h1>Derived Stock</h1>
+	<hr style='border-top: 1px solid red;'>
 	    <?php
 		//$lowThreshold = 5;
 		if(isset($_POST['lowthreshold']) && !empty($_POST['lowthreshold'])){
@@ -258,10 +260,34 @@
 		}
 		else {
 			$lowThreshold = 5;
+			 echo "NO LOW THRESHOLD SELECTED<br>";
 			 echo "DEFAULT LOW THRESHOLD = ".$lowThreshold."<br>";
 		}
 		echo "<h3 style='color:red;'>Lowest derived stock count is ".$lowestCurrentStock."</h3>";
-	
+		$totalSoldByID = getTotalSoldByID($link, $maxID);
+		//echo "<br>";
+		$totalPurchasedByID = getTotalPurchasedByID($link, $maxID);	
+		$derivedStockByID = calculateStockByID($totalPurchasedByID, $totalSoldByID, $maxID);
+		//var_dump($derivedStockByID);
+		$totalThresholdByID = getTotalThresholdByID($lowThreshold, $derivedStockByID, $maxID);
+		echo  "<br>Total number of products at or below low threshold = ".$totalThresholdByID."<br>";
+		$listOnLow = populateLowThreshold($link, $lowThreshold, $derivedStockByID);
+		//var_dump($listOnLow);
+		if(!empty($listOnLow)){
+			$x = 0;
+			echo "<table border='1'>";
+			echo "<tr><th align='left'> ITEM </th><th align='center' style='color:red'> COUNT </th><th align='right'> NAME </th></tr>";
+			
+			foreach($listOnLow as $key => $value){
+				echo "<tr><td align='right'>".($x+1).")</td><td align='center'>".$derivedStockByID[$key]."<td align='left'> " .$value."</td></tr>";
+				$x++;
+			}
+			echo "</table>";
+		}			 
+?>
+
+		<hr style='border-top: 1px solid red;'>
+<?php
 		//$highThreshold = 20;
 		if(isset($_POST['highthreshold']) && !empty($_POST['lowthreshold'])){
 			$highThreshold = $_POST['highthreshold'];
@@ -277,8 +303,21 @@
 		echo "<br>";
 		$totalPurchasedByID = getTotalPurchasedByID($link, $maxID);	
 		$derivedStockByID = calculateStockByID($totalPurchasedByID, $totalSoldByID, $maxID);
-		$totalThresholdByID = getTotalThresholdByID($lowThreshold, $derivedStockByID, $maxID);
-		echo  "<br>Total number of products at or below low threshold = ".$totalThresholdByID."<br>"; 
+		$totalHighThresholdByID = getHighTotalThresholdByID($highThreshold, $derivedStockByID, $maxID);
+		echo  "<br>Total number of products at or above high threshold = ".$totalHighThresholdByID."<br>"; 
+		$listOnHigh = populateHighThreshold($link, $highThreshold, $derivedStockByID);
+		//var_dump($listOnLow);
+		if(!empty($listOnHigh)){
+			$x = 0;
+			echo "<table border='1'>";
+			echo "<tr><th align='left'> ITEM </th><th align='center' style='color:red'> COUNT </th><th align='right'> NAME </th></tr>";
+			
+			foreach($listOnHigh as $key => $value){
+				echo "<tr><td align='right'>".($x+1).")</td><td align='center'>".$derivedStockByID[$key]."<td align='left'> " .$value."</td></tr>";
+				$x++;
+			}
+			echo "</table>";
+		}
 		
 	    ?>
       </div>	
@@ -289,6 +328,30 @@
     <div class="col-sm-2 text-center"> 
       <div class="well">		 
       <h1>Order Data</h1>
+		<hr style='border-top: 1px solid red;'>
+	<?php
+		$mostSoldItemIndex = getMostSoldItemIndex($totalSoldByID);
+		$mostSoldProductName = getMostSoldProductName($link, $mostSoldItemIndex);
+		echo "<h4 style='color:red;'>MOST SOLD PRODUCT BY QUANTITY</h4>";
+		echo $mostSoldProductName." is the most sold comic book with a total of ".$totalSoldByID[$mostSoldItemIndex]." sold.<br>";
+		
+		//$groupedPurchasedItem = getGroupedPurchasedItem($link);
+		//echo "Most purchased item is ".$mostPurchasedItem."<br>";
+	?>
+
+		<hr style='border-top: 1px solid red;'>
+
+	<?php
+		$profitItemsSold = getProfitItemsSold($link);
+		$mostProfitItemIndex = getMostProfitItemIndex($profitItemsSold);
+		$mostProfitItemName = getMostProfitName($link,$mostProfitItemIndex);
+
+		echo "<h4 style='color:red;'>MOST SOLD PRODUCT BY PROFIT</h4>";
+		echo $mostProfitItemName." is the most profitable comic book with a profit of $".number_format((float)$profitItemsSold[$mostProfitItemIndex],2,".","").".<br>";
+		
+		//$groupedPurchasedItem = getGroupedPurchasedItem($link);
+		//echo "Most purchased item is ".$mostPurchasedItem."<br>";
+	?>
       </div>	
     </div>
 
@@ -297,6 +360,95 @@
     <div class="col-sm-2 text-center"> 
       <div class="well">		 
       <h1>Customer Data</h1>
+		<hr style='border-top: 1px solid red;'>
+	<?php
+		$qtySold = array();
+		$orderNum = array();
+		$sql = "SELECT SUM(qty_sold), order_num from contains group by order_num order by sum desc";
+		$result = pg_query($link, $sql);
+		if (!$result) echo "*****ERROR*****<br>";
+		$x = 0;
+		while($row = pg_fetch_assoc($result)){
+			$sum = $row['sum'];
+			$order = $row['order_num'];
+			$qtySold += array_fill($x,1,$sum); 
+			$orderNum += array_fill($x,1,$order); 	
+			$x++;
+		}
+		//var_dump($qtySold);
+		//echo "<br><br>";
+		//var_dump($orderNum);
+
+		$fname = array();
+		$middle = array();
+		$lname = array();
+		$x=0;
+		foreach($orderNum as $value){
+		$sql = "SELECT fname, middle_init, lname FROM places as p, customer as c WHERE c.customer_id = p.customer_id and p.order_num =".$value;
+		$result = pg_query($link, $sql);
+		if (!$result) echo "*****ERROR*****<br>";
+		while($row = pg_fetch_assoc($result)){
+			$first = $row['fname'];
+			$mid = $row['middle_init'];
+			$last = $row['lname'];
+			$fname += array_fill($x,1,$first); 
+			$middle += array_fill($x,1,$mid); 
+			$lname += array_fill($x,1,$last); 
+		}
+			$x++;	
+		}
+		
+		echo "<h4 style='color:red;'>LARGEST 5 ORDERS BY QUANTITY</h4>";
+		for($x=0; $x < 5; $x++)
+		echo $qtySold[$x]." comics bought by ".$fname[$x]." ".$lname[$x]." <br>";
+		//$qtySoldDesc = getQtySoldDesc($link);   
+	?>
+
+		<hr style='border-top: 1px solid red;'>
+	<?php
+		$qtyProfit = array();
+		$orderNum = array();
+		$sql = "SELECT SUM(qty_sold * (s_price - p_price)), order_num from contains as c, receives as r WHERE c.p_id = r.p_id group by order_num order by sum desc";
+		$result = pg_query($link, $sql);
+		if (!$result) echo "*****ERROR*****<br>";
+		$x = 0;
+		while($row = pg_fetch_assoc($result)){
+			$sum = $row['sum'];
+			$order = $row['order_num'];
+			$qtyProfit += array_fill($x,1,$sum); 
+			$orderNum += array_fill($x,1,$order); 	
+			$x++;
+		}
+		//var_dump($qtyProfit);
+		//echo "<br><br>";
+		//var_dump($orderNum);
+
+		$fname = array();
+		$middle = array();
+		$lname = array();
+		$x=0;
+		foreach($orderNum as $value){
+		$sql = "SELECT fname, middle_init, lname FROM places as p, customer as c WHERE c.customer_id = p.customer_id and p.order_num =".$value;
+		$result = pg_query($link, $sql);
+		if (!$result) echo "*****ERROR*****<br>";
+		while($row = pg_fetch_assoc($result)){
+			$first = $row['fname'];
+			$mid = $row['middle_init'];
+			$last = $row['lname'];
+			$fname += array_fill($x,1,$first); 
+			$middle += array_fill($x,1,$mid); 
+			$lname += array_fill($x,1,$last); 
+		}
+			$x++;	
+		}
+		
+		echo "<h4 style='color:red;'>LARGEST 5 ORDERS BY PROFIT</h4>";
+		for($x=0; $x < 5; $x++)
+		//echo $qtySold[$x]." comics bought by ".$fname[$x]." ".$lname[$x]." <br>";
+		echo "$".number_format((float)$qtyProfit[$x],2,".","")." ordered by ".$fname[$x]." ".$lname[$x]."<br>";
+		//$qtySoldDesc = getQtySoldDesc($link);   
+	?>
+
       </div>	
     </div>
 
@@ -304,10 +456,13 @@
 
     <div class="col-sm-2 sidenav">
       <div class="well">
-        <p>ADS</p>
-      </div>
-      <div class="well">
-        <p>ADS</p>
+	<form action="analyticsPDF.php" method="POST">
+	<table>
+	  <tr>
+	  <td><input type='submit' value='Generate PDF Report'></td>
+	  </tr>
+	</table>
+	</form>
       </div>
     </div>
   </div>

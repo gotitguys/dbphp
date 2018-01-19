@@ -124,6 +124,19 @@ function getTotalThresholdByID($threshold, $derivedStockByID, $maxID){
 }
 ?>
 
+
+<?php
+function getHighTotalThresholdByID($threshold, $derivedStockByID, $maxID){
+	$count = 0;
+	for ($x=0; $x < $maxID; $x++){
+		$index = ($x+1);
+		if ($derivedStockByID[$index] >= $threshold)
+			$count++;
+	}	
+	return $count;
+}
+?>
+
 <?php
 function calculateStock($totalPurchased, $totalSold, $maxID){
 	$array = array();
@@ -239,10 +252,175 @@ function getHighestCurrentStock($maxID, $derivedStockByID){
 ?>
 
 <?php
-/*function profitLoss($link){
-	$test = "In profit loss function<br/>";
-	return $test;
-}*/
-
-
+function populateLowThreshold($link, $lowThreshold, $derivedStockByID){
+	//var_dump($derivedStockByID);
+	$array = array();
+	$sql = "Select * from products where p_id = ";
+	foreach($derivedStockByID as $key => $value){
+		//echo "DEBUG: FOREACH ".$value."<br>";
+		$sql = "Select * from products where p_id = ".$key;
+		$result = pg_query($link,$sql);
+		if($value <= $lowThreshold){
+			//echo "DEBUG: IF ".$value."<br>";
+			while($row = pg_fetch_assoc($result)){
+				$name = $row['p_name'];
+				$id = $row['p_id'];
+				$array += array_fill($id,1,$name);
+			}
+		}
+	}
+	//var_dump($array);
+	return $array;
+}
 ?>
+
+<?php
+function populateHighThreshold($link, $highThreshold, $derivedStockByID){
+	//var_dump($derivedStockByID);
+	$array = array();
+	$sql = "Select * from products where p_id = ";
+	foreach($derivedStockByID as $key => $value){
+		//echo "DEBUG: FOREACH ".$value."<br>";
+		$sql = "Select * from products where p_id = ".$key;
+		$result = pg_query($link,$sql);
+		if($value >= $highThreshold){
+			//echo "DEBUG: IF ".$value."<br>";
+			while($row = pg_fetch_assoc($result)){
+				$name = $row['p_name'];
+				$id = $row['p_id'];
+				$array += array_fill($id,1,$name);
+			}
+		}
+	}
+	//var_dump($array);
+	return $array;
+}
+?>
+
+<?php
+function getMostSoldItemIndex($totalSoldByID){
+	
+	$max = 0;
+	$index = 0;
+	$debug = false;
+
+	foreach($totalSoldByID as $key => $value){
+		if($debug){
+		echo "DEBUG: value = ".$value."<br>";
+		}
+		if($value > $max){
+			$max = $value;
+			if($debug){
+				echo "DEBUG: key = ".$key."<br>";
+			}
+			$index = $key;
+		}
+
+	}
+	//var_dump($index);
+	return $index;
+}
+?>
+
+<?php
+function getGroupedPurchasedItem($link){
+	$array = array();
+	$sql = "Select sum(qty_sold), p_id from contains group by p_id order by p_id";
+	$result = pg_query($link,$sql);
+	while($row = pg_fetch_assoc($result)){
+		$total = $row['max'];
+		$id = $row['p_id'];
+		$array += array_fill($id,1,$total);
+	}
+	//var_dump($array);
+	return $array;
+}
+?>
+
+<?php
+function getMostSoldProductName($link, $mostSoldItemIndex){
+	$name;
+	$sql = "Select p_name from products where p_id = ".$mostSoldItemIndex;
+	$result = pg_query($link,$sql);
+	while($row = pg_fetch_assoc($result)){
+		$name = $row['p_name'];
+	}
+	//var_dump($array);
+	return $name;
+}
+?>
+
+<?php
+function getProfitItemsSold($link){
+	$array = array();
+	$sql = "SELECT SUM(c.qty_sold * (c.s_price - r.p_price )), c.p_id FROM contains as c, receives as r WHERE c.p_id = r.p_id GROUP BY c.p_id order by c.p_id";
+	$result = pg_query($link,$sql); 
+	while($row = pg_fetch_assoc($result)){
+		$total = $row['sum'];
+		$id = $row['p_id'];
+		$array += array_fill($id,1,$total);
+	}
+	//var_dump($array);
+	return $array;
+}
+?>
+
+<?php
+function getMostProfitItemIndex($profitItemsSold){
+	
+	$max = 0;
+	$index = 0;
+	$debug = false;
+
+	foreach($profitItemsSold as $key => $value){
+		if($debug){
+		echo "DEBUG: value = ".$value."<br>";
+		}
+		if($value > $max){
+			$max = $value;
+			if($debug){
+				echo "DEBUG: key = ".$key."<br>";
+			}
+			$index = $key;
+		}
+
+	}
+	
+	//echo "<br>";
+	//var_dump($index);
+	return $index;
+}
+?>
+
+<?php
+function getMostProfitName($link, $mostProfitItemIndex){
+	$name;
+	$sql = "Select p_name from products where p_id = ".$mostProfitItemIndex;
+	$result = pg_query($link,$sql);
+	while($row = pg_fetch_assoc($result)){
+		$name = $row['p_name'];
+	}
+	//var_dump($name);
+	return $name;
+}
+?>
+
+<?php
+/*function getQtySoldDesc($link){
+	$array = array();
+	$sql = "Select sum(qty_sold)";
+	$result = pg_query($link,$sql);
+	while($row = pg_fetch_assoc($result)){
+		$sum = $row['p_name'];
+	}
+	//var_dump($name);
+	return $array;
+}*/
+?>
+
+
+
+
+
+
+
