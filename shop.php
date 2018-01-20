@@ -80,12 +80,12 @@ display: block;
 </div>
 </nav>
 <center>
-<div id="myBtnContainer">
+<!--<div id="myBtnContainer">
 <button class="btn active" onclick ="filterSelection('all')">Show all </button>
 <button class ="btn" onclick= "filterSelection('Marvel')">Marvel</button>
 <button class ="btn" onclick= "filterSelection('DC')">DC</button>
 <button class ="btn" onclick= "filterSelection('Dark Horse')">Dark Horse</button>
-</div></center><br>
+</div>--></center><br>
 <br>
 <!-- *************************************************************************************************************************************** -->
 <!-- ************************************************  product display     ***************************************************************** -->

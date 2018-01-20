@@ -118,6 +118,7 @@ $name = $fname." ".$lname;
 
 
   $pdf->Cell(10,5,'ORDER # 0019',0,1);
+  $pdf->Cell(10,5,'Date: 01-19-2018',0,1);
   $pdf->Cell(5,5,' ',0,1);
   $pdf->Cell(20,5,'ORDER FOR:',0,1);
   $pdf->Cell(20,5,$name,0,1);
