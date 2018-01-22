@@ -294,7 +294,7 @@
 		<hr style='border-top: 1px solid red;'>
 <?php
 		//$highThreshold = 20;
-		if(isset($_POST['highthreshold']) && !empty($_POST['lowthreshold'])){
+		if(isset($_POST['highthreshold']) && !empty($_POST['highthreshold'])){
 			$highThreshold = $_POST['highthreshold'];
 			echo "<p style='color:blue' > High threshold is set to ".$highThreshold."<br>";
 		}
